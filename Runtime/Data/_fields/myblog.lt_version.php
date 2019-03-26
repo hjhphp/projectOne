@@ -1,0 +1,1 @@
+a:9:{i:0;s:4:"v_id";i:1;s:9:"v_version";i:2;s:8:"v_remark";i:3;s:6:"v_time";i:4;s:6:"v_view";i:5;s:4:"v_ip";i:6;s:8:"v_author";s:3:"_pk";s:4:"v_id";s:5:"_type";a:7:{s:4:"v_id";s:7:"int(11)";s:9:"v_version";s:11:"varchar(16)";s:8:"v_remark";s:4:"text";s:6:"v_time";s:7:"int(10)";s:6:"v_view";s:7:"int(11)";s:4:"v_ip";s:11:"varchar(16)";s:8:"v_author";s:11:"varchar(64)";}}

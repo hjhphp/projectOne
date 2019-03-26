@@ -1,0 +1,137 @@
+<div class="col-md-4 row-r">
+	<div class="sider-box sider-box2">
+	    <div class="search-box">
+	        <div class="input-group search-input">
+	        <form action="{:U('Class/search')}" method="get" class="form-search">
+	          	<input type="text" class="form-control" placeholder="请输入关键词" name="key">
+	          	<span class="input-group-btn">
+	            	<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	          	</span>
+	        </form>
+	        </div>
+	    </div>
+		
+    </div>
+	<div class="sider-box2">    
+	<h4><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;我的标签</h4>
+	    <ul class="tag-ul">
+	      	<volist name="tag" id="v" empty="暂时没有标签">
+	      	<if condition="$v['key'] % 6 ==1"><li class="label label-default"><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	      	<if condition="$v['key'] % 6 ==2"><li class="label label-primary "><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	      	<if condition="$v['key'] % 6 ==3"><li class="label label-success "><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	        <if condition="$v['key'] % 6 ==4"><li class="label label-info "><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	        <if condition="$v['key'] % 6 ==5"><li class="label label-warning "><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	        <if condition="$v['key'] % 6 ==0"><li class="label label-danger  tag-end "><a href="{:U('/article-'.$v['a_id'])}">{$v.a_keyword|getTag}</a></li></if>
+	      	</volist>
+	    </ul>
+	</div>
+	<div class="sider-box2">
+	<h4><span class="glyphicon glyphicon-retweet"></span>&nbsp;&nbsp;随机文章</h4>   	
+	    <ul class="rand-ul">
+	      	<volist name="s_article" id="vo">
+	        <notempty name="vo.a_id">
+	         	<li>
+	           		<a href="{:U('/article-'.$vo['a_id'])}" title="{$vo.a_title}" class="rand-img image-light"><img src="{$vo.a_img}" class="article-img" alt="{$vo.a_title}" title="{$vo.a_title}" /></a>
+	           		<div class="rand-title"><a href="{:U('/article-'.$vo['a_id'])}">{$vo.a_title|msubstr=0,15,'utf-8',true}</a></div>
+	           		<div class="rand-remark">{$vo.a_remark|strip_tags|msubstr=0,35,'utf-8',true}</div>
+	              </li>
+	          </notempty>
+	      </volist>
+	    </ul>
+	</div>
+	<div class="sider-box2">
+	<h4><span class="glyphicon glyphicon-random"></span>&nbsp;&nbsp;最新互动</h4>
+	  	<div class="tab"  id="tab">
+	        <ul class="nav nav-tabs" >
+	           <li class="active"><a href="#home" data-toggle="tab">最新评论</a></li>
+	           <li><a href="#content" data-toggle="tab">最新留言</a></li>
+	           <li><a href="#hot" data-toggle="tab">最多点击</a></li>
+	        </ul>
+	  	</div>
+	  	<div class="tab-content">
+	     	<div class="tab-pane active" id="home">
+	        <ul class="content-ul">
+	      		<volist name="s_content" id="vo">
+	      			<notempty name="vo.ac_id">
+	        			<li>
+	        				<notempty name="vo.ac_url">
+	        					<a href="{$vo.ac_url}" target="_blank" rel="nofollow" title="访问 {$vo.ac_name} 的网站?">
+	            				<img src="{$vo.ac_img}" class="img-circle img-45"/></a>
+	        				<else />
+	        					<img src="{$vo.ac_img}" class="img-circle img-45"/>
+	        				</notempty>
+	          				<div class="content-name"><a><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;</a>{$vo.ac_name}</div>
+	          				<div class="content-remark">
+	          					<span class="label label-success ">文章</span>&nbsp;&nbsp;<a href="{:U('/article-'.$vo['ac_pid'])}" title="{$vo.ac_content|delFace}.." >{$vo.ac_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</a>
+	          				</div>
+	        			</li>
+	        		</notempty>
+	        		<notempty name="vo.alc_id">
+	        			<li>
+	        				<notempty name="vo.alc_url">
+	        					<a href="{$vo.alc_url}" target="_blank" rel="nofollow" title="访问 {$vo.alc_name} 的网站?">
+	                    		<img src="{$vo.alc_img}" class="img-circle img-45"/>
+	                    	<else />
+	                    		<img src="{$vo.alc_img}" class="img-circle img-45"/>
+	        				</notempty>
+	        				<div class="content-name"><a><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;</a>{$vo.alc_name}</div>
+	                  		<div class="content-remark">
+	                  			<span class="label label-primary ">相册</span>&nbsp;&nbsp;<a href="{:U('/album-'.$vo['alc_pid'])}" title="{$vo.alc_content|delFace}" >{$vo.alc_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</a>
+	                  		</div>
+	                	</li>	
+	        		</notempty>
+	        		<notempty name="vo.sc_id">
+	        			<li>
+	        				<notempty name="vo.sc_url">
+	        					<a href="{$vo.sc_url}" target="_blank" rel="nofollow" title="浏览 {$vo.s_c_name} 的网站？">
+	             				<img src="{$vo.sc_img}" class="img-circle img-45"/></a>
+	             			<else />
+	             				<img src="{$vo.sc_img}" class="img-circle img-45"/>
+	        				</notempty>
+	           				<div class="content-name"><a><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;</a>{$vo.sc_name}</div>
+	          				<div class="content-remark">
+	         					<span class="label label-info ">说说</span>&nbsp;&nbsp;<a href="{:U('/feel-'.$vo['sc_pid'])}" title="{$vo.sc_content|delFace}" >{$vo.sc_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</a>
+	          				</div>               				
+	        			</li>
+	        		</notempty>
+	    		</volist>
+	      	</ul>
+	     	</div>
+	        <div class="tab-pane " id="content">
+	        <ul class="content-ul">
+	            <volist name="gusts" id="v">
+	          		<li>
+	          			<notempty name="v.g_url">
+	          				<a href="{$v.g_url}" target="_blank" rel="nofollow" title="浏览 {$v.g_name} 的网站?">
+	                		<img src="{$v.g_img}" class="img-circle img-45"/></a>
+	                	<else />
+	                		<img src="{$v.g_img}" class="img-circle img-45"/>
+	          			</notempty>
+	          			<div class="content-name"><a><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;</a>{$v.g_name}</div>
+	          			<div class="content-remark">
+	          				<a href="{:U('/gust')}" title="{$v.g_content|delFace}" >{$v.g_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</a>
+	          			</div>
+	          		</li>
+	          </volist>
+	        </ul>
+	        </div>
+	     	<div class="tab-pane " id="hot">
+	        <ul class="hot-ul">
+	          	<volist name="hits" id="v">
+	          		<li><a><span class="glyphicon glyphicon-fire"></span></a>&nbsp;&nbsp;<a href="{:U('/article-'.$v['a_id'])}" >{$v.a_title|mb_substr=0,25,'utf-8'}</a>({$v.a_hit})</li>
+	          	</volist>
+	        </ul>
+	     	</div>
+	  	</div>
+	</div>
+	<div class="sider-box2">
+  	<h4 class="link"><span class="glyphicon glyphicon-link"></span>&nbsp;&nbsp;友情链接</h4>
+	  	<ul class="link-ul">
+	    	<volist name="link" id="v" empty="暂时没有友情链接">
+	    	<li><a href="{$v.l_url}" target="_blank" title="{$v.l_name}">{$v.l_name}</a></li>
+	    	</volist>
+	  	</ul>
+	</div>
+</div>
+</div>
+</div>

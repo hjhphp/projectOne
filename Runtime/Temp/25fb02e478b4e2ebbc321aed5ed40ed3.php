@@ -1,0 +1,11 @@
+<?php
+//000000000010a:24:{s:4:"a_id";s:3:"114";s:5:"a_img";s:28:"/Upload/Thumb/1451639362.jpg";s:7:"a_title";s:27:"给博客添加节日雪花";s:8:"a_remark";s:226:"转眼就是2016年的圣诞和元旦到了，然后剩下的就是春节，节日多了当然气氛就要嗨起来嘛，这里给大家分享一个比较不错的雪花特效，简单、粗暴。需要的可以进来瞧瞧。";s:9:"a_keyword";s:15:"雪花,jq特效";s:3:"pid";s:1:"1";s:6:"a_time";s:10:"1451638806";s:9:"a_content";s:1961:"<p>二话不说先上效果图:</p><p style="text-align:center"><img src="/Upload/20160101/1451638951632614.png" title="1451638951632614.png" alt="QQ截图20160101170138.png"/></p><p>需要的朋友请看下面的说明，对JQ比较了解的朋友可以直接下载。</p><blockquote><p>下载地址：</p></blockquote><p><a href="http://pan.baidu.com/s/1mgO5nLY" _src="http://pan.baidu.com/s/1mgO5nLY">http://pan.baidu.com/s/1mgO5nLY</a>（也可以在下载区下载）</p><blockquote><p>操作方法</p></blockquote><ol class=" list-paddingleft-2" style="list-style-type: decimal;"><li><p>把下面代码加入需要显示的文件，因为我是公用底部，所以我添加在底部</p></li></ol><pre class="brush:html">&lt;!--&nbsp;新年雪花效果开始&nbsp;--&gt;
+&lt;style&nbsp;type=&#39;text/css&#39;&gt;
+.snowwrap,.snow-container{position:&nbsp;fixed;&nbsp;top:&nbsp;0;&nbsp;left:&nbsp;0;&nbsp;width:&nbsp;100%;&nbsp;height:&nbsp;100%;&nbsp;pointer-events:&nbsp;none;&nbsp;z-index:&nbsp;100001;}
+&lt;/style&gt;
+&lt;div&nbsp;class=&quot;snowwrap&quot;&gt;
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;div&nbsp;class=&quot;snow-container&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;!--&nbsp;新年雪花效果结束&nbsp;--&gt;</pre><p>2.引入核心JQ文件</p><pre class="brush:html">&lt;!--&nbsp;雪花效果JS&nbsp;--&gt;
+&lt;script&nbsp;src=&#39;__JS__/snow.js&#39;&gt;&lt;/script&gt;</pre><p>然后就可以看到效果了。具体请参考本博客现在的效果。<br/></p><blockquote><p>注意事项<br/></p></blockquote><ol class=" list-paddingleft-2" style="list-style-type: decimal;"><li><p>snow.js的2958行需要指定雪花图片的地址</p></li><li><p>需要在snow.js前面引入JQ文件</p></li></ol><p>应该没什么了，如果遇到问题可以留言和我说下。另外新版博客剩下后台的部分代码修改，预计春节发布2.0版本。</p><p>元旦到了2016年的新开始，祝大家新的一天学业有成，心想事成。</p>";s:6:"a_view";s:1:"2";s:5:"a_hit";s:3:"558";s:10:"a_original";s:1:"1";s:6:"a_from";s:5:"Win 7";s:8:"a_author";s:6:"隆航";s:4:"a_ip";s:12:"58.53.107.63";s:5:"a_num";s:1:"0";s:4:"t_id";s:1:"1";s:6:"t_name";s:12:"学习笔记";s:6:"t_time";s:10:"1447661369";s:6:"t_sort";s:3:"100";s:6:"t_view";s:1:"1";s:8:"t_remark";s:51:"自己学习上的一些笔记总结和经验分享";s:4:"t_ip";s:15:"111.172.255.211";s:6:"t_from";s:5:"Win 7";s:6:"t_root";s:5:"admin";}
+?>

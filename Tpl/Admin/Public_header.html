@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{$Think.config.NAME} 后台管理系统</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+		<link rel="stylesheet" href="__CSS__/my.css" />	
+		<link rel="stylesheet" href="__CSS__/unicorn.css" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="__JS__/respond.min.js"></script>
+		<![endif]-->
+	</head>	
+	<body data-color="grey" class="flat">
+	<div id="wrapper">
+			<div id="header">
+				<h1><a href="{:U('Admin/Index/index')}">Admin</a></h1>	
+				<a id="menu-trigger" href="#"><i class="fa fa-bars"></i></a>	
+			</div>
+		
+			<div id="user-nav">
+	            <ul class="btn-group">
+	                <li class="btn" >
+	                	<a title="" href="#">
+	                		<i class="fa fa-user"></i> 
+	                		<span class="text">{$Think.session.uname}</span>
+	                	</a>
+	                </li>
+	                <li class="btn"><a title="" href="{:U('Admin/System/index')}"><i class="fa fa-cog"></i> <span class="text">系统设置</span></a></li>
+	                <li class="btn"><a title="" href="{:U('Admin/Index/out')}"><i class="fa fa-share"></i> <span class="text">退出</span></a></li>
+	            </ul>
+	        </div>
+	       
+			<div id="sidebar">
+				<div id="search">
+					<input type="text" placeholder="Search here..."/><button type="submit" class="tip-right" title="Search"><i class="fa fa-search"></i></button>
+				</div>	
+				<ul>
+					<li {$index}><a href="{:U('Admin/Index/index')}"><i class="fa fa-dashboard"></i> <span>首页</span></a></li>
+					<li><a href="{$Think.config.SITE_URL}" target="_blank"><i class="fa fa-home"></i> <span>前端首页</span></a></li>
+					<li class="submenu {$add}">
+						<a href="#"><i class="fa fa-flask"></i> <span>发布内容</span> <i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$say}><a href="{:U('Admin/Say/index')}">发布说说</a></li>
+							<li {$article}><a href="{:U('Admin/Article/index')}">发布文章</a></li>
+							<li {$version}><a href="{:U('Admin/Version/index')}">发布新版本</a></li>
+						</ul>
+					</li>
+					<li class="submenu {$list}">
+						<a href="#"><i class="fa fa-th"></i> <span>内容管理</span> <i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$saylist}><a href="{:U('Admin/Say/sayList')}">说说列表</a></li>
+							<li {$articlelist}><a href="{:U('Admin/Article/articleList')}">文章列表</a></li>
+							<li {$versionlist}><a href="{:U('Admin/Version/versionList')}">版本列表</a></li>
+						</ul>
+					</li>
+					<li class="submenu {$content}">
+						<a href="#"><i class="fa fa-comment"></i> <span>互动管理</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$saycontent}><a href="{:U('Admin/Say/sayContentList')}">说说评论</a></li>
+							<li {$articlecontent}><a href="{:U('Admin/Article/articleContentList')}">文章评论</a></li>
+							<li {$gustcontent}><a href="{:U('Admin/Gust/gustList')}">留言评论</a></li>
+							<li {$albumcontent}><a href="{:U('Admin/Album/albumContentList')}">相册评论</a></li>
+						</ul>
+					</li>
+					<eq name="Think.session.class" value="1">
+					<li class="submenu {$user}">
+						<a href="#"><i class="fa fa-user-md"></i> <span>用户管理</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$useradd}><a href="{:U('Admin/User/userAdd')}">新增用户</a></li>
+							<li {$userlist}><a href="{:U('Admin/User/userList')}">用户列表</a></li>
+						</ul>
+					</li>
+					</eq>
+					<li class="submenu {$tag}">
+						<a href="#"><i class="fa fa-tags"></i> <span>博客头条</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$tagadd}><a href="{:U('Admin/Topline/index')}">新增头条</a></li>
+							<li {$taglist}><a href="{:U('Admin/Topline/topList')}">编辑头条</a></li>
+						</ul>
+					</li>
+					<li class="submenu {$tag}">
+						<a href="#"><i class="fa fa-tags"></i> <span>栏目设置</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$tagadd}><a href="{:U('Admin/Tag/index')}">新增栏目</a></li>
+							<li {$taglist}><a href="{:U('Admin/Tag/tagList')}">栏目列表</a></li>
+						</ul>
+					</li>
+					<li class="submenu {$link}">
+						<a href="#"><i class="fa fa-link"></i> <span>链接设置</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$linkadd}><a href="{:U('Admin/Link/index')}">新增链接</a></li>
+							<li {$linklist}><a href="{:U('Admin/Link/linkList')}">链接列表</a></li>
+						</ul>
+					</li>
+
+					<li class="submenu {$album}">
+						<a href="#"><i class="fa fa-folder-open"></i> <span>相册管理</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$albumadd}><a href="{:U('Admin/Album/index')}">新增相册</a></li>
+							<li {$albumlist}><a href="{:U('Admin/Album/albumList')}">相册列表</a></li>
+						</ul>
+					</li>
+
+					<li class="submenu {$picture}">
+						<a href="#"><i class="fa fa-picture-o"></i> <span>图片管理</span><i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$pictureadd}><a href="{:U('Admin/Picture/index')}">新增图片</a></li>
+							<li {$picturelist}><a href="{:U('Admin/Picture/pictureList')}">图片列表</a></li>
+						</ul>
+					</li>
+					<li class="submenu {$system}">
+						<a href="#"><i class="fa fa-windows"></i> <span>系统设置</span> <i class="arrow fa fa-chevron-right"></i></a>
+						<ul>
+							<li {$systembasic}><a href="{:U('Admin/System/index')}">基本设置</a></li>
+							<!--<li {$systemone}><a onclick="alert('单页设置开发中')">单页设置</a></li>-->
+							<li {$systememail}><a href="{:U('Admin/System/email')}">邮件设置</a></li>
+							<li {$systemppt}><a href="{:U('Admin/System/ppt')}">幻灯设置</a></li>
+							<!--<li><a href="#" onclick="alert('高级功能开发中')">高级设置</a></li>-->
+						</ul>
+					</li>
+				</ul>			
+			</div>		
+		

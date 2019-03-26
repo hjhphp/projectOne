@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>后台登录</title>
+    <style type="text/css">
+    #cloud1, #cloud2{position:absolute; top:100px; left:0px; width:405px; height:165px; z-index:6; opacity:0.5; background:url(/Public/Img/login_cloud.jpg) no-repeat;}
+    #cloud2{z-index:7; top:200px;}
+    </style>
+    <script type="text/javascript" src="__JS__/jquery.min.js"></script>
+    <script src="__JS__/jquery.gritter.min.js"></script>
+    <script src="__JS__/my.js"></script>
+    <link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="__CSS__/my.css"/>
+    <script type="text/javascript">
+        $(function(){
+            //得到焦点
+            $("#password").focus(function(){
+                $("#left_hand").animate({
+                    left: "150",
+                    top: " -38"
+                },{step: function(){
+                    if(parseInt($("#left_hand").css("left"))>140){
+                        $("#left_hand").attr("class","left_hand");
+                    }
+                }}, 2000);
+                $("#right_hand").animate({
+                    right: "-64",
+                    top: "-38px"
+                },{step: function(){
+                    if(parseInt($("#right_hand").css("right"))> -70){
+                        $("#right_hand").attr("class","right_hand");
+                    }
+                }}, 2000);
+            });
+            //失去焦点
+            $("#password").blur(function(){
+                $("#left_hand").attr("class","initial_left_hand");
+                $("#left_hand").attr("style","left:100px;top:-12px;");
+                $("#right_hand").attr("class","initial_right_hand");
+                $("#right_hand").attr("style","right:-112px;top:-12px");
+            });
+            
+            $("#login").click(function(){
+            	var user = $("#user").val();
+            	var password = $("#password").val();
+            	if(!user||!password){
+            		err('用户名和密码不能为空!');
+            	}else{
+            		$.ajax({
+            			type:"post",
+            			url:"/Admin/Login/in",
+            			async:true,
+            			data:{"user":user,"password":password},
+            			success:function(data){
+            				if(data.error==1){
+            					err(data.msg)
+            				}else{
+            					succ("登陆成功",'欢迎回来!'+data.msg,"/Admin/Index");
+            				}
+            			}
+            		});
+            	}
+            });
+            
+        });
+    </script>
+</head>
+<body scroll="no" style="overflow-x:hidden;overflow-y:hidden">
+<div class="top_div">
+    <div id="cloud1"></div>
+    <div id="cloud2"></div>
+</div>
+<div style="width: 350px;height: 220px;margin: auto auto;background: #ffffff;text-align: center;margin-top: -100px;border: 1px solid #e7e7e7;border-radius: 5px;">
+    <div style="width: 165px;height: 96px;position: absolute">
+        <div class="tou"></div>
+        <div id="left_hand" class="initial_left_hand"></div>
+        <div id="right_hand" class="initial_right_hand"></div>
+    </div>
+	
+    <p style="padding: 30px 0px 10px 0px;position: relative;">
+        <span class="u_logo"></span>
+        <input class="ipt" type="text" placeholder="请输入用户名" id="user">
+    </p>
+    <p style="position: relative;">
+        <input id="password" class="ipt" type="password"  placeholder="请输入密码" id="password">
+    </p>
+	<p id="msg" style="font-size: 12px;color: red;"></p>
+    <div style="height: 70px;line-height: 70px;margin-top: 40px;border-top: 1px solid #e7e7e7;">
+        <p style="margin: 0px 35px 20px 35px;">
+           <span style="float: left"><a href="#" style="color:#ccc;">忘记密码?</a></span>
+           <span style="float: right">
+               <a href="#" style="background: #008ead;padding: 7px 10px;border-radius: 4px;border: 1px solid #1a7598;color: #FFF;font-weight: bold;" id="login">登陆</a>
+           </span>
+        </p>
+    </div>
+
+</div>
+
+<div style="position: fixed;bottom: 20px;text-align: center;width: 100%;">
+    Copyright ©2015 http://www.weiloving.com
+</div>
+</body>
+<script type="text/javascript">
+        // Cloud Float...
+    var offset1 = 450;
+    var offset2 = 0;
+    var offsetbg = 0;
+    
+    var $cloud1 = $("#cloud1");
+    var $cloud2 = $("#cloud2");
+    
+    
+
+    /// 飘动
+    setInterval(function flutter(){
+        var mainwidth = window.innerWidth;
+        /*mainwidth = mainwidth;*/
+        console.log(mainwidth);
+        if(offset1 >= mainwidth){offset1 = -580;}
+        if(offset2 >= mainwidth){offset2 = -580;}
+        offset1 += 1.1;
+        offset2 += 1;
+        $cloud1.css("left", offset1);
+        $cloud2.css("left", offset2);
+    }, 70);
+</script>
+</html>

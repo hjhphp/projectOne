@@ -1,0 +1,109 @@
+<div class="container-footer">
+	<div class="container footer">
+		<div class="row footer-all">
+			<div class="col-md-3 hidden-xs">
+				<h4>程序统计</h4>
+					<p class="foot-box1">
+						<a><span class="glyphicon glyphicon-comment"></span></a>&nbsp;&nbsp;微说：&nbsp;{$num.say|chenkNum} 条
+						<span class="foot-box1-r">
+						<a><span class="glyphicon glyphicon-pencil"></span></a>&nbsp;&nbsp;文章：&nbsp;{$num.article|chenkNum} 篇
+						</span>
+					</p> 
+					<p class="foot-box1">
+						<a><span class="glyphicon glyphicon-envelope"></span></a>&nbsp;&nbsp;评论：&nbsp;{$num.comment|chenkNum} 条
+						<span class="foot-box1-r">
+						<a><span class="glyphicon glyphicon-send"></span></a>&nbsp;&nbsp;留言：&nbsp;{$num.gust|chenkNum} 条
+						</span>
+					</p>
+					<p class="foot-box1">
+						<a><span class="glyphicon glyphicon-home"></span></a>&nbsp;&nbsp;建站：&nbsp;{$system.createtime|getDay} 天
+						<span class="foot-box1-r">
+						<a><span class="glyphicon glyphicon-camera"></span></a>&nbsp;&nbsp;相册：&nbsp;{$num.album|chenkNum} 个
+						</span>
+					</p>
+					<p class="foot-box1">
+						<a><span class="glyphicon glyphicon-picture"></span></a>&nbsp;&nbsp;图片：&nbsp;{$num.picture|chenkNum} 张
+						<span class="foot-box1-r">
+						<a><span class="glyphicon glyphicon-link"></span></a>&nbsp;&nbsp;链接：&nbsp;{$num.link|chenkNum} 条
+						</span>
+					</p>
+					<p class="foot-box1">
+						<a><span class="glyphicon glyphicon-tree-conifer"></span></a>&nbsp;&nbsp;访问：&nbsp;{$system.hit|chenkNum} 次
+					</p> 
+			</div>
+			<div class="col-md-3 ">
+				<h4>程序交流</h4>
+					<p class="foot-box1">
+						Q群：<a href="" target="_blank" class="foot-my"><strong>517783507</strong></a>
+						<span class="foot-box1-r">
+						<a><span class="glyphicon glyphicon-heart-empty"></span></a>
+						&nbsp;<a href="http://koubei.baidu.com/w/weiloving.com" target="_blank" class="foot-my">&nbsp;邀你点评</a>
+						</span>
+					</p>
+					<p class="foot-box1">
+						程序：&nbsp;{$Think.config.NAME}
+						<span class="foot-box1-r">
+						版本：&nbsp;Beta {$version}
+						</span>
+					</p> 
+					<p class="foot-box1">
+						框架：&nbsp;{$Think.config.FRAME}
+						<span class="foot-box1-r">
+						语言：&nbsp;{$Think.config.LANG}
+						</span>
+					</p> 
+					<p class="foot-box1">
+						编码：&nbsp;{$Think.config.CHARSET}
+						<span class="foot-box1-r">
+						作者：&nbsp;{$Think.config.AUTHOR}
+						</span>
+					</p>
+					<p class="foot-box1">
+						源码声明：&nbsp;请参考&nbsp;&nbsp;<a href="http://www.kancloud.cn/iamhappy/blog?token=crMXYD8ksUyt" class="foot-my">使用手册</a>
+					</p>
+			</div>
+			<div class="col-md-3 hidden-xs">
+				<h4>推荐文章</h4>
+					<volist name="f_article" id="vo">
+                    <p class="foot-box3"><a><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp;&nbsp;<a href="{:U('/article-'.$vo['a_id'])}" title="{$vo.a_title}" class="foot-my">{$vo.a_title}</a></p>
+                    </volist>
+			</div>
+			<div class="col-md-3 hidden-xs">
+			<h4>我的相册</h4>
+				<ul class="picture-ul">
+					<volist name="foot_album" id="vo">
+					<li>
+						<a href="{:U('/album-'.$vo['al_id'])}" target="_blank" title="{$vo.al_name}"><img class="img-rounded img-50" src="{$vo.al_img}" alt="{$vo.al_name}"></a>
+					</li>
+					</volist>
+				</ul>
+			</div>
+		</div>
+		<div class="row bottom">
+			<div class="col-md-6 col-sm-5 bottom-left">
+				{$system.copy}
+			</div>     
+			<div class="col-md-6 col-sm-7 bottom-right hidden-xs">
+				{$system.footer}&nbsp;|&nbsp;{$system.icp}
+			</div> 
+		</div>
+	</div>
+</div>
+<div id="toTop" class="hidden-xs" style="display: none;"><span class="glyphicon glyphicon-chevron-up toTop-img"></span></div>
+<!-- 新年雪花效果开始 -->
+<style type='text/css'>
+/*@media (min-width: 767px){*/
+.snowwrap,.snow-container{position: fixed; top: 0; left: 0; width: 100% !important; height: 100%; pointer-events: none; z-index: 100001;}
+/*}*/
+</style>
+ <div class="snowwrap hidden-xs">
+     <div class="snow-container hidden-xs"></div>
+ </div>
+<!-- 新年雪花效果结束 -->
+<script src="__JS__/jquery-1.10.1.min.js" ></script>
+<!-- 雪花效果JS -->
+ <script src='__JS__/snow.js'></script>
+<script src="__JS__/bootstrap.min.js" ></script>
+<script src="__JS__/common.js"></script>
+<script src="__JS__/rl_exp.js"></script>   	
+<script src="__JS__/jquery.fancybox.js"></script>	

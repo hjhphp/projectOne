@@ -1,0 +1,278 @@
+<include file="Public:header"/>		
+<div id="content">
+	<div id="content-header">
+		<empty name="info['p_id']">
+			<h1>新增图片</h1>
+			<else />
+			<h1>修改图片</h1>
+		</empty>
+		<div class="btn-group">
+			<a href="{:U('Admin/Picture/pictureList')}" class="btn btn-large" title="图片列表"><i class="fa fa-tasks"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">图片管理</a>
+		<empty name="info['p_id']">
+		<a href="#" class="current">新增图片</a>
+		<else />
+		<a href="#" class="current">修改图片</a>
+		</empty>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-flask"></i>									
+						</span>
+						<empty name="info['p_id']">
+						<h5>新增图片</h5>
+						<else />
+						<h5>修改图片</h5>
+						<input value="{$info.p_id}" id="id" type="hidden">
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form action="#" method="get" class="form-horizontal">
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">相册</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<select id="pid">
+										<volist name="album" id="v">
+										<option value="{$v.al_id}" <if condition="$info['p_pid'] eq $v['al_id']">selected</if> >{$v.al_name}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+							 
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">图片</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+					                <div class="imageBox2">
+					                    <div class="thumbBox2"></div>
+					                    <div class="spinner" style="display: none">Loading...</div>
+					                </div>
+					                <notempty name="info['p_id']">
+					                	<input id="img" value="{$info.p_img}" type="hidden" />
+					                </notempty>
+									<input type="file" id="file"/>
+								</div>
+                            </div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    	<input type="text" <empty name="info['p_id']">value="{:date("Y-m-d H:i:s",time())}"<else />value="{$info.p_time|date="Y-m-d H:i:s",###}"</empty> class="form-control input-sm" id="time" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">显示</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="show" value="0" <eq name="info['p_view']" value="0">checked</eq> /> Not show</label>
+									<label><input type="radio" name="show" value="1" <eq name="info['p_view']" value="1">checked</eq> /> Show</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">描述</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="3" class="form-control" id="remark">{$info.p_remark}</textarea>
+								</div>
+							</div>
+                            
+                            <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['p_id']">value="{$Think.session.uname}"<else/>value="{$info.p_root}"</empty> class="form-control input-sm" id="root" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">IP</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['p_id']">value="{:get_client_ip()}"<else/>value="{$info.p_ip}"</empty> class="form-control input-sm" id="ip" />
+                                    </div>
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">来自</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['p_id']">value="{:getOs()}"<else/>value="{$info.p_from}"</empty> class="form-control input-sm" id="from" />
+                                    </div>
+                                </div>
+                            </div> 
+                            
+							<div class="form-actions">
+								<empty name="info['p_id']">
+								<button type="button" class="btn btn-success btn-sm" id="addP">存入数据库</button>  
+								<else />
+								<button type="button" class="btn btn-success btn-sm" id="editP">存入数据库</button>
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+
+<include file="Public:footer"/> 
+<script>
+	$(document).ready(function(){
+		$('input[type=checkbox],input[type=radio]').iCheck({
+	    	checkboxClass: 'icheckbox_flat-blue',
+	    	radioClass: 'iradio_flat-blue'
+		});
+		$('select').select2();
+	    $('.spinner').spinner();
+	    var head = $('#img').val();
+	    if(!head){
+	    	head = '/Public/Other/Img/default.png';
+	    }
+	    var options = {
+        thumbBox: '.thumbBox2',
+        spinner: '.spinner',
+        imgSrc: head
+    	};
+    	var cropper = $('.imageBox2').cropbox(options);
+    	$('#file').on('change', function() {
+        	var reader = new FileReader();
+        	reader.onload = function(e) {
+            options.imgSrc = e.target.result;
+            cropper = $('.imageBox2').cropbox(options);
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = [];
+    	});
+	    $('#addP').click(function(){				    	
+	    	var pid = $('#pid').val();
+	    	var img = cropper.getDataURL();
+	    	var time = $('#time').val();
+	    	var show = $('input[name="show"]:checked').val();
+	    	var remark = $('#remark').val();
+	    	var root = $('#root').val();
+	    	var ip = $('#ip').val();
+	    	var from = $('#from').val();
+	    	if(!pid){
+	    		err("相册不能为空!");
+	    		return false;
+	    	}else if(!file){
+	    		err("上传图片不能为空!")
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间！");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("图片描述不能为空!");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空!");
+	    		return false;
+	    	}else if(!ip){
+	    		err("请勿删除ip!");
+	    		return false;
+	    	}else if(!from){
+	    		err("来自不能为空!");
+	    		return false;
+	    	}
+	    	$("#addP").attr("disabled",true);
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Picture/pictureAdd",
+	    		async:true,
+	    		data:{"p_pid":pid,"p_img":img,"p_remark":remark,"p_time":time,"p_view":show,"p_root":root,"p_ip":ip,"p_from":from},
+				success:function(data){
+					if(data.error==0){
+						succ("添加相册完成!",data.msg,"/Admin/Picture/pictureList");
+					}else{
+						err(data.msg);
+						$("#addP").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#addP").removeAttr('disabled');
+				}
+	    	});
+	    });
+	    $('#editP').click(function(){
+	    	var id = $('#id').val();
+	    	var pid = $('#pid').val();
+	    	var img = cropper.getDataURL();
+	    	var time = $('#time').val();
+	    	var show = $('input[name="show"]:checked').val();
+	    	var remark = $('#remark').val();
+	    	var root = $('#root').val();
+	    	var ip = $('#ip').val();
+	    	var from = $('#from').val();
+	    	if(!pid){
+	    		err("相册不能为空!");
+	    		return false;
+	    	}else if(!file){
+	    		err("上传图片不能为空!")
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间！");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("图片描述不能为空!");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空!");
+	    		return false;
+	    	}else if(!ip){
+	    		err("请勿删除ip!");
+	    		return false;
+	    	}else if(!from){
+	    		err("来自不能为空!");
+	    		return false;
+	    	}
+	    	$("#editP").attr("disabled",true);
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Picture/pictureEditH",
+	    		async:true,
+	    		data:{"p_id":id,"p_pid":pid,"p_img":img,"p_remark":remark,"p_time":time,"p_view":show,"p_root":root,"p_ip":ip,"p_from":from},
+				success:function(data){
+					if(data.error==0){
+						succ("修改相册完成!",data.msg,"/Admin/Picture/pictureList");
+					}else{
+						err(data.msg);
+						$("#editP").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#editP").removeAttr('disabled');
+				}
+	    	});
+	    });
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<include file="Public:header"/>
+<div id="content">
+	<div id="content-header">
+		<empty name="info['s_id']">
+			<h1>发表说说</h1>
+		<else />
+			<h1>修改说说</h1>
+		</empty>
+		<div class="btn-group">
+			<a href="{:U('Admin/Say/sayList')}" class="btn btn-large" title="说说列表"><i class="fa fa-tasks"></i></a>
+			<a href="{:U('Admin/Say/sayContentList')}" class="btn btn-large" title="说说评论"><i class="fa fa-comment"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<empty name="info['s_id']">
+			<a href="#">发布内容</a>
+			<a href="#" class="current">发表说说</a>
+		<else />
+			<a href="#">说说列表</a>
+			<a href="#" class="current">修改说说</a>
+		</empty>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-volume-up"></i>									
+						</span>
+						<empty name="info['s_id']">
+							<h5>发表说说</h5>
+						<else />
+							<h5>修改说说</h5>
+							<input id="sid" value="{$info.s_id}" type="hidden"/>
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form action="#" method="post" class="form-horizontal">
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">说说内容</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									 <script id="container" name="content" type="text/plain">{$info.s_content}</script>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    	<input type="text" <empty name="info['s_id']">value="{:date("Y-m-d H:i:s",time())}"<else />value="{$info.s_time|date='Y-m-d H:i:s',###}"</empty> class="form-control input-sm" id="time"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">是否显示</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="show" value="0" <eq name="info['s_view']" value="0">checked</eq> /> 不显示</label>
+									<label><input type="radio" name="show" value="1" <eq name="info['s_view']" value="1">checked</eq> /> 显示</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表自</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['s_id']">value="{:getOs()}"<else />value="{$info.s_from}"</empty> class="form-control input-sm" id="from" />
+                                    </div>
+                                </div>
+                            </div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['s_id']">value="{$Think.config.ADMIN_NAME}"<else />value="{$info.s_author}"</empty> class="form-control input-sm" id="user" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表IP</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['s_id']">value="{:get_client_ip()}"<else />value="{$info.s_ip}"</empty> class="form-control input-sm" id="ip" />
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">点击量</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-fire"></i></span>
+                                    	<input type="text" <empty name="info['s_id']">value="{$Think.config.HIT}"<else />value="{$info.s_hit}"</empty> class="form-control input-sm" id="hit" />
+                                    </div>
+                                </div>
+                            </div>
+							
+							<div class="form-actions">
+								<empty name="info['s_id']">
+								<button type="button" class="btn btn-success btn-sm" id="addsay">存入数据库</button>  
+								<else />
+								<button type="button" class="btn btn-success btn-sm" id="editsay">存入数据库</button> 
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/> 	 
+<script src="__UE__/ueditor.config.js"></script>
+<script src="__UE__/ueditor.all.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('input[type=checkbox],input[type=radio]').iCheck({
+	    	checkboxClass: 'icheckbox_flat-blue',
+	    	radioClass: 'iradio_flat-blue'
+		});
+		var ue = UE.getEditor('container');
+		$('select').select2();
+	    $('.spinner').spinner();
+    	$('#addsay').click(function(){
+    		var content = UE.getEditor('container').getContent();
+    		var time = $('#time').val();
+    		var show = $('input[name="show"]:checked').val();
+    		var user = $('#user').val();
+    		var ip = $('#ip').val();
+    		var hit = $('#hit').val();
+    		var from = $('#from').val();
+    		if(!content){
+    			err("文本内容不能为空!");
+    			return false;
+    		}else if(!time){
+    			err("请勿删除时间!");
+    			return false;
+    		}else if(!show){
+    			err("请选择时候显示!");
+    			return false;
+    		}else if(!user){
+    			err("请勿删除作者!");
+    			return false;
+    		}else if(!ip){
+    			err("请勿删除作者!");
+    			return false;
+    		}else if(!hit){
+    			err("点击量不能为空!");
+    			return false;
+    		}else if(!from){
+    			err("来自不能为空!");
+    			return false;
+    		}
+    		$("#addsay").attr("disabled",true);
+    		$.ajax({
+    			type:"post",
+    			url:"/Admin/Say/sayAdd",
+    			async:true,
+    			data:{"s_content":content,"s_from":from,"s_ip":ip,"s_time":time,"s_view":show,"s_hit":hit,"s_author":user},
+				success:function(data){
+					if(data.error==0){
+						succ("发表说说完成!",data.msg,"/Admin/Say/sayList");
+					}else{
+						err(data.msg);
+						$("#addsay").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#addsay").removeAttr('disabled');
+				}
+    		});
+    	});
+    	$('#editsay').click(function(){
+    		var sid = $('#sid').val();
+    		var content = UE.getEditor('container').getContent();
+    		var time = $('#time').val();
+    		var show = $('input[name="show"]:checked').val();
+    		var user = $('#user').val();
+    		var ip = $('#ip').val();
+    		var hit = $('#hit').val();
+    		var from = $('#from').val();
+    		if(!content){
+    			err("文本内容不能为空!");
+    			return false;
+    		}else if(!time){
+    			err("请勿删除时间!");
+    			return false;
+    		}else if(!show){
+    			err("请选择时候显示!");
+    			return false;
+    		}else if(!user){
+    			err("请勿删除作者!");
+    			return false;
+    		}else if(!ip){
+    			err("请勿删除作者!");
+    			return false;
+    		}else if(!hit){
+    			err("点击量不能为空!");
+    			return false;
+    		}else if(!from){
+    			err("来自不能为空!");
+    			return false;
+    		}
+    		$("#editsay").attr("disabled",true);
+    		$.ajax({
+    			type:"post",
+    			url:"/Admin/Say/sayEditH",
+    			async:true,
+    			data:{"s_id":sid,"s_content":content,"s_from":from,"s_ip":ip,"s_time":time,"s_view":show,"s_hit":hit,"s_author":user},
+				success:function(data){
+					if(data.error==0){
+						succ("修改说说完成!",data.msg,"/Admin/Say/sayList");
+					}else{
+						err(data.msg);
+						$("#editsay").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#editsay").removeAttr('disabled');
+				}
+    		});
+    	});
+	});
+	</script>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<include file="Public:header"/>	
+<div id="content">
+	<div id="content-header" class="mini"><h1>仪表盘</h1></div>
+	<div id="breadcrumb">
+		<a href="{:U('Admin/Index/index')}" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="{:U('Admin/Index/index')}" class="current">仪表盘</a>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 center" style="text-align: center;">					
+				<ul class="quick-actions">
+					<li><a href="#"><i class="icon-cal"></i>已运行：{$system.createtime|getDay} 天</a></li>
+					<li><a href="{:U('Admin/System/email')}"><i class="icon-mail"></i>邮件设置</a></li>
+					<li><a href="{:U('Admin/User/userList')}"><i class="icon-user"></i>用户管理</a></li>
+					<li><a href="{:U('Admin/Say/index')}"><i class="icon-survey"></i>写说说</a></li>
+					<li><a href="{:U('Admin/Article/index')}"><i class="icon-survey"></i>写文章</a></li>
+					<li><a href="http://www.cnzz.com/stat/website.php?web_id=1253899479"><i class="icon-graph"></i>站长统计</a></li>
+				</ul>
+			</div>	
+		</div><br />
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-info">
+					<i class="fa fa-code"></i>  欢迎使用  <strong>维爱博客</strong>  后台管理程序. 请遵循使用守则，谢谢!
+					<a href="#" data-dismiss="alert" class="close">×</a>
+				</div>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="fa fa-signal"></i></span><h5>站点统计</h5>
+						<div class="buttons">
+							<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">更新</span></a>
+						</div>
+					</div>
+					<div class="widget-content">
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<ul class="site-stats">
+									<li><div class="cc"><i class="fa fa-eye"></i> <strong>{$system.hit|chenkNum}</strong> <small>次访问</small></div></li>
+									<li><div class="cc"><i class="fa fa-edit"></i> <strong>{$num.say|chenkNum}</strong> <small>篇说说</small></div></li>
+									<li><div class="cc"><i class="fa fa-comment"></i> <strong>{$num.comment|chenkNum}</strong> <small>条评论</small></div></li>
+									<li><div class="cc"><i class="fa fa-comments"></i> <strong>{$num.gust|chenkNum}</strong> <small>条留言</small></div></li>
+									<li><div class="cc"><i class="fa fa-picture-o"></i> <strong>{$num.picture|chenkNum}</strong> <small>张图片</small></div></li>
+								</ul>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<ul class="site-stats">
+									<li><div class="cc"><i class="fa fa-edit"></i> <strong>{$num.article|chenkNum}</strong> <small>篇文章</small></div></li>
+									
+									<li><div class="cc"><i class="fa fa-comment"></i> <strong>{$num.album|chenkNum}</strong> <small>个相册</small></div></li>
+									<li><div class="cc"><i class="fa fa-comments"></i> <strong>{$num.link|chenkNum}</strong> <small>条外链</small></div></li>
+									<li class="divider"></li>
+									<li><div class="cc">程序官网：<a href="http://www.weiloving.com" target="_blank">&nbsp;&nbsp;http://www.weiloving.com</a></div></li>
+									<li><div class="cc">程序作者：金浩 [ admin@weiloving.com ]</div></li>
+								</ul>
+							</div>
+							<div class="col-xs-12 col-sm-4">
+								<ul class="site-stats">
+									<li><div class="cc">QQ群 ： 517783507</div></li>
+									<li><div class="cc">服务器版本 ：{$_SERVER['SERVER_SOFTWARE']}</div></li>
+									<li><div class="cc">服务器IP：{$_SERVER['SERVER_ADDR']}</div></li>
+									<li><div class="cc">PHP版本：{:PHP_VERSION}</div></li>
+									<li><div class="cc">数据库信息：{:mysql_get_client_info()}</div></li>
+								</ul>
+							</div>		
+						</div>							
+					</div>
+				</div>					
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<div class="widget-box">
+					<div class="widget-title"><span class="icon"><i class="fa fa-comment"></i></span><h5>评论</h5></div>
+					<div class="widget-content nopadding">
+						<ul class="recent-posts">
+						<volist name="s_content" id="vo">
+							<notempty name="vo.ac_id">
+		        			<li>
+		        				<div class="user-thumb"><img src="{$vo.ac_img}" width="40" height="40"/></div>
+		        				<div class="article-post">
+		        				<span class="user-info"> By: {$vo.ac_name} on {$vo.ac_time|getTime}, IP：{$vo.ac_ip} 在文章中评论</span>
+		          				<p>&nbsp;&nbsp;{$vo.ac_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</p>
+		          				<neq name="vo.ac_rtime" value="0">
+		          				<a class="btn btn-primary btn-xs">已回复</a>
+		          				<else />
+		          				<a href="{:U('Admin/Article/articleContentEdit',array('id'=>$vo['ac_id']))}" class="btn btn-primary btn-xs">回复</a>
+		          				</neq>
+		          				 <a href="{:U('Admin/Article/articleContentList')}" class="btn btn-danger btn-xs">删除</a>
+		          				</div>
+		        			</li>
+			        		</notempty>
+			        		<notempty name="vo.alc_id">
+			        			<li>
+			        			<div class="user-thumb"><img src="{$vo.alc_img}" width="40" height="40"/></div>
+		        				<div class="article-post">
+		        				<span class="user-info"> By: {$vo.alc_name} on {$vo.alc_time|getTime}, IP：{$vo.alc_ip} 在相册中评论</span>
+		          				<p>&nbsp;&nbsp;{$vo.alc_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</p>
+		          				<neq name="vo.alc_rtime" value="0">
+		          				<a class="btn btn-primary btn-xs">已回复</a>
+		          				<else />
+		          				<a href="{:U('Admin/Album/albumContentEdit',array('id'=>$vo['alc_id']))}" class="btn btn-primary btn-xs">回复</a>
+		          				</neq>
+		          				<a href="{:U('Admin/Album/albumContentList')}" class="btn btn-danger btn-xs">删除</a>
+		          				</div>
+		          				</li>
+			        		</notempty>
+			        		<notempty name="vo.sc_id">
+			        			<li>
+			        			<div class="user-thumb"><img src="{$vo.sc_img}" width="40" height="40"/></div>
+		        				<div class="article-post">
+		        				<span class="user-info"> By: {$vo.sc_name} on {$vo.sc_time|getTime}, IP：{$vo.sc_ip} 在相册中评论</span>
+		          				<p>&nbsp;&nbsp;{$vo.sc_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</p>
+		          				<neq name="vo.sc_rtime" value="0">
+		          				<a class="btn btn-primary btn-xs">已回复</a>
+		          				<else />
+		          				<a href="{:U('Admin/Say/sayContentEdit',array('id'=>$vo['sc_id']))}" class="btn btn-primary btn-xs">回复</a>
+		          				</neq>
+		          				<a href="{:U('Admin/Say/sayContentList')}" class="btn btn-danger btn-xs">删除</a>
+		          				</div>
+		          				</li>
+			        		</notempty>
+							
+							</volist>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<div class="widget-box">
+					<div class="widget-title"><span class="icon"><i class="fa fa-comments"></i></span><h5>留言</h5></div>
+					<div class="widget-content nopadding">
+						<ul class="recent-comments">
+							<volist name="gusts" id="g">
+							<li>
+								<div class="user-thumb">
+									<img width="40" height="40" src="{$g.g_img}">
+								</div>
+								<div class="comments">
+									<span class="user-info"> User: {$g.g_name} on {$g.g_time|getTime}, IP: {$g.g_ip} </span>
+									<p>&nbsp;&nbsp;{$g.g_content|delFace|strip_tags|msubstr=0,19,'utf-8',ture}</p>
+									<neq name="g.g_rtime" value="0">
+		          						<a class="btn btn-primary btn-xs">已回复</a>
+		          					<else />
+		          						<a href="{:U('Admin/Gust/gustEdit',array('id'=>$g['g_id']))}" class="btn btn-primary btn-xs">回复</a>
+		          					</neq>
+									<a href="{:U('Admin/Gust/gustList')}" class="btn btn-danger btn-xs">删除</a>
+								</div>
+							</li>
+							</volist>
+							<li class="viewall">
+								<a title="查看全部" class="tip-top" href="{:U('Admin/Gust/gustList')}"> + 查看全部 + </a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</div>
+</div>
+<include file="Public:footer"/>
+</body>
+</html>

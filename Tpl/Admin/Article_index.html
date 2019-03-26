@@ -1,0 +1,321 @@
+<include file="Public:header"/>			
+<div id="content">
+	<div id="content-header">
+		<empty name="info['a_id']">
+		<h1>发表文章</h1>
+		<else />
+		<h1>修改文章</h1>
+		</empty>
+		<div class="btn-group">
+			<a href="{:U('Admin/Article/articleList')}" class="btn btn-large" title="文章列表"><i class="fa fa-tasks"></i></a>
+			<a href="{:U('Admin/Article/articleContentList')}" class="btn btn-large" title="文章评论"><i class="fa fa-comment"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="Go to Home" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">发布内容</a>
+		<empty name="info['a_id']">
+		<a href="#" class="current">发表文章</a>
+		<else />
+		<a href="#" class="current">修改文章</a>
+		</empty>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-flask"></i>									
+						</span>
+						<empty name="info['a_id']">
+						<h5>发表文章</h5>
+						<else />
+						<h5>修改文章</h5>
+						<input id="aid" value="{$info.a_id}" type="hidden"/>
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form method="get" class="form-horizontal">
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">文章标题</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<input type="text" class="form-control input-sm" id="title" value="{$info.a_title}"/>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">文章类别</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<select id="tag">
+										<volist name="tag" id="v">
+											<option value="{$v.t_id}" <if condition="$info['pid'] eq $v['t_id']">selected</if> >{$v.t_name}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label for="" class="col-sm-3 col-md-3 col-lg-1 control-label">关键词</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-quote-left"></i></span>
+										<input type='text' class="form-control input-sm" placeholder="一个关键词" id="keyword" value="{$info.a_keyword}"/>
+										<span class="input-group-addon"><i class="fa fa-quote-right"></i></span>
+									</div>
+								</div>											
+							</div>
+							
+							                                                   
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">封面</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+					                <div class="imageBox-article">
+					                    <div class="thumbBox-article"></div>
+					                    <div class="spinner" style="display: none">Loading...</div>
+					                </div>
+					                <notempty name="info['a_id']">
+					                	<input id="img" value="{$info.a_img}" type="hidden" />
+					                </notempty>
+									<input type="file" id="file"/>
+								</div>
+                            </div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">描述</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="3" class="form-control" id="remark">{$info.a_remark}</textarea>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">文章内容</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<script id="container" name="content" type="text/plain">{$info.a_content}</script>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    	<input type="text" <empty name="info['a_id']">value="{:date("Y-m-d H:i:s",time())}"<else />value="{$info.a_time|date="Y-m-d H:i:s",###}"</empty> class="form-control input-sm" id="time"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">显示</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="show" value="0" <eq name="info['a_view']" value="0">checked</eq> > Not show</label>
+									<label><input type="radio" name="show" value="1" <eq name="info['a_view']" value="1">checked</eq> /> Show</label>
+									<label><input type="radio" name="show" value="2" <eq name="info['a_view']" value="2">checked</eq> /> Hot</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">原创</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="org" value="1" <eq name="info['a_original']" value="1">checked</eq>/> Yes</label>
+									<label><input type="radio" name="org" value="0" <eq name="info['a_original']" value="0">checked</eq> /> No</label>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">发表人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="infp['a_id']">value="{$Think.config.ADMIN_NAME}"<else />value="{$info.a_author}"</empty>  class="form-control input-sm" id="root"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">点击量</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-fire"></i></span>
+                                    	<input type="text" <empty name="info['a_id']">value="{$Think.config.HIT}"<else />value="{$info.a_hit}"</empty> class="form-control input-sm" id="hit"/>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="form-actions">
+								<empty name="info['a_id']">
+								<button type="button" class="btn btn-success btn-sm" id="addA">存入数据库</button>&nbsp;&nbsp;  
+								<else />
+								<button type="button" class="btn btn-success btn-sm" id="editA">存入数据库</button>&nbsp;&nbsp;  
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<script src="__UE__/ueditor.config.js"></script>
+<script src="__UE__/ueditor.all.min.js"></script>
+<script>
+	$(document).ready(function(){	
+		$('input[type=checkbox],input[type=radio]').iCheck({
+	    	checkboxClass: 'icheckbox_flat-blue',
+	    	radioClass: 'iradio_flat-blue'
+		});
+		var ue = UE.getEditor('container');
+		$('select').select2();
+	    $('.spinner').spinner();
+	    var head = $('#img').val();
+	    if(!head){
+	    	head = '/Public/Other/Img/default.png';
+	    }
+	    var options = {
+        thumbBox: '.thumbBox-article',
+        spinner: '.spinner',
+        imgSrc: head
+    	};
+    	var cropper = $('.imageBox-article').cropbox(options);
+    	$('#file').on('change', function() {
+        	var reader = new FileReader();
+        	reader.onload = function(e) {
+            options.imgSrc = e.target.result;
+            cropper = $('.imageBox-article').cropbox(options);
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = [];
+    	});
+	    $('#addA').click(function(){
+	    	var title = $('#title').val();
+	    	var tag = $('#tag').val();
+	    	var keyword = $('#keyword').val();
+	    	var remark = $('#remark').val();
+	    	var img = cropper.getDataURL();
+	    	var content = UE.getEditor('container').getContent();
+	    	var time = $('#time').val();
+	    	var show = $('input[name="show"]:checked').val();
+	    	var org = $('input[name="org"]:checked').val();
+	    	var root = $('#root').val();
+	    	var hit = $('#hit').val();
+	    	if(!title){
+	    		err("文章标题不能为空!");
+	    		return false;
+	    	}else if(!tag){
+	    		err("文章类别不能为空!");
+	    		return false;
+	    	}else if(!keyword){
+	    		err("关键词不能为空!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("文章描述不能为空!");
+	    		return false;
+	    	}else if(!content){
+	    		err("正文不能为空!");
+	    		return false;
+	    	}else if(!time){
+	    		err("发表时间不能为空!");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示!");
+	    		return false;
+	    	}else if(!org){
+	    		err("请选择是否原创!");
+	    		return false;
+	    	}else if(!root){
+	    		err("作者不能为空!");
+	    		return false;
+	    	}else if(!hit){
+	    		err("默认点击量不能为空!");
+	    		return false;
+	    	}
+	    	$("#addA").attr("disabled",true);
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Article/articleAdd",
+	    		async:true,
+	    		data:{"a_title":title,"a_remark":remark,"a_img":img,"a_keyword":keyword,"pid":tag,"a_time":time,"a_content":content,"a_view":show,"a_hit":hit,"a_original":org,"a_author":root},
+				success:function(data){
+					if(data.error==0){
+						succ("添加文章完成!",data.msg,"/Admin/Article/articleList");
+					}else{
+						err(data.msg);
+						$("#addA").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#addA").removeAttr('disabled');
+				}
+	    	});
+	    });
+	    
+	    $('#editA').click(function(){
+	    	var img = cropper.getDataURL();
+	    	var aid = $('#aid').val();
+	    	var title = $('#title').val();
+	    	var tag = $('#tag').val();
+	    	var keyword = $('#keyword').val();
+	    	var remark = $('#remark').val();
+	    	var content = UE.getEditor('container').getContent();
+	    	var time = $('#time').val();
+	    	var show = $('input[name="show"]:checked').val();
+	    	var org = $('input[name="org"]:checked').val();
+	    	var root = $('#root').val();
+	    	var hit = $('#hit').val();
+	    	if(!title){
+	    		err("文章标题不能为空!");
+	    		return false;
+	    	}else if(!tag){
+	    		err("文章类别不能为空!");
+	    		return false;
+	    	}else if(!keyword){
+	    		err("关键词不能为空!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("文章描述不能为空!");
+	    		return false;
+	    	}else if(!content){
+	    		err("正文不能为空!");
+	    		return false;
+	    	}else if(!time){
+	    		err("发表时间不能为空!");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示!");
+	    		return false;
+	    	}else if(!org){
+	    		err("请选择是否原创!");
+	    		return false;
+	    	}else if(!root){
+	    		err("作者不能为空!");
+	    		return false;
+	    	}else if(!hit){
+	    		err("默认点击量不能为空!");
+	    		return false;
+	    	}
+	    	$("#editA").attr("disabled",true);
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Article/articleEditH",
+	    		async:true,
+	    		data:{"a_img":img,"a_id":aid,"a_title":title,"a_remark":remark,"a_keyword":keyword,"pid":tag,"a_time":time,"a_content":content,"a_view":show,"a_hit":hit,"a_original":org,"a_author":root},
+				success:function(data){
+					if(data.error==0){
+						succ("修改文章完成!",data.msg,"/Admin/Article/articleList");
+					}else{
+						err(data.msg);
+						$("#editA").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#editA").removeAttr('disabled');
+				}
+	    	});
+	    });
+	});
+</script>
+</body>
+</html>

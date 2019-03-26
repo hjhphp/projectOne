@@ -1,0 +1,91 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!--[if lt IE 9]>
+<script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->        
+<meta property="qc:admins" content="73113635665455576375" />
+<link rel="stylesheet" href="__CSS__/bootstrap.min.css" />
+<link rel="shortcut icon" href="__IMG__/icon/favicon.ico" />
+<link rel="stylesheet" href="__CSS__/my.css" />
+    </head>
+    <body>  
+
+        <div class="top-top">
+            <div class="container">
+                <div class="col-md-5 top-left"><a class="from">{:getOs()}</a></div>
+                 <span class="col-md-5 top-left" id="time" style="text-align:center;"></span>
+                <div class="col-md-5 top-right">
+                    <empty name="Think.session.nickname">
+                      <a href="{:U('Common/loginqq',array("type"=>"qq"))}" class="from" >QQ访问</a>
+          <else />
+            {$Think.session.nickname} <a class='from' href="{:U('Common/out')}">退出</a>
+          </empty>
+                </div>
+            </div>
+        </div>
+        <div class="container ">
+            <div class="row header">
+                  <!-- <video autoplay muted loop style="width: 100%;height:30%;position:fixed;right:0;bottom:0;min-width:100%;min-height:100%;width:auto;height:auto;z-index:-9999;">
+                      <source src="__IMG__/oceans.webm" type="video/webm"/>
+                  </video> -->
+                <div class="col-md-4 logo">
+                    <a title="{$Think.config.NAME}" href="/"><img src="__IMG__/icon/logo.png" /></a>
+                    <h5 class="hidden-xs">{$system.title2}</h5>               
+                </div>
+                <div class="nav-dh col-md-5 col-xs-12">
+                    <nav class="navbar navbar-default">
+                          <div class="navbar-header">
+                              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                              <span class="sr-only">导航</span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              <span class="icon-bar"></span>
+                              </button>
+                              <a class="navbar-brand visible-xs" href="#">博客导航</a>
+                          </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                              <li class="{$index} dh"><a href="{:U('/index')}">首页</a></li>
+                              <li class="{$about} dh"><a href="{:U('/about')}">关于我</a></li>
+                              <li class="dropdown dh {$class}">
+                                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">分类<span class="caret"></span></a>
+                                  <ul class="dropdown-menu" role="menu">
+                                  <volist name="pid" id="vo">
+                                      <li><a href="{:U('/class-'.$vo['t_id'])}" ><i class="icon-ok-sign"></i> {$vo.t_name}</a></li>
+                                      <!-- <li class="divider"></li> -->
+                                  </volist>           
+                                </ul>
+                              </li>
+                              <li class="dh {$feel}"><a href="{:U('/feel')}">说说</a></li>
+                              <li class="dh {$album}"><a href="{:U('/album')}">相册</a></li>
+                              <li class="dh {$friends}"><a href="{:U('/friends')}">邻居</a></li>
+                              <li class="dh {$gust}"><a href="{:U('/gust')}">留言板</a></li>
+                            </ul>
+                            <div class="notice">
+                                <ul id="notice_ul">
+                                    <li name="notice_li">{:getTop()[0]['top_content']}</li>
+                                    <li name="notice_li">{:getTop()[1]['top_content']}</li>
+                                    <li name="notice_li">{:getTop()[2]['top_content']}</li>
+                                    <li name="notice_li">{:getTop()[3]['top_content']}</li>
+                                    <li name="notice_li">{:getTop()[4]['top_content']}</li>
+                                    <li name="notice_li">{:getTop()[5]['top_content']}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>    
+            </div>
+            <script type="text/javascript" >
+    window.setInterval(function(){
+          var date_obj = new Date();
+          var time_obj = document.getElementById('time');
+          var year = date_obj.getFullYear();
+          var month = date_obj.getMonth()+1;
+          var day = date_obj.getDate();
+          var hour = date_obj.getHours();
+          var minute = date_obj.getMinutes();      
+          var second = date_obj.getSeconds();
+          time_obj.innerHTML = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+    },1000)
+  
+            </script>

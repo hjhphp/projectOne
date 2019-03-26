@@ -1,0 +1,209 @@
+<include file="Public:header"/> 	
+<div id="content">
+	<div id="content-header">
+		<h1>相册评论回复</h1>
+		<div class="btn-group">
+			<a href="{:U('Admin/Album/albumContentList')}" class="btn btn-large" title="相册评论列表"><i class="fa fa-tasks"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">互动管理</a>
+		<a href="#" class="current">相册评论回复</a>
+	</div>
+	<div class="container-fluid">
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="alert alert-info">
+				<i class="fa fa-code"></i>使用邮件回复的时候，请耐心等待，谢谢!
+				<a href="#" data-dismiss="alert" class="close">×</a>
+			</div>
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon">
+						<i class="fa fa-comment"></i>									
+					</span>
+					<h5>相册评论回复</h5>
+				</div>
+				<div class="widget-content nopadding">
+					<form  class="form-horizontal">							
+						<div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">相册名称</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-10">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-laptop"></i></span>
+                                	<input type="text" value="{$info.al_name}" class="form-control input-sm" id="al_name" readonly/>
+                                	<input type="hidden" value="{$info.alc_id}" id="alc_id"/>
+                                	<input type="hidden"  value="{$info.al_id}" id="al_id" />
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">用户名</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-10">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                	<input type="text" value="{$info.alc_name}" class="form-control input-sm" id="alc_name" />
+                                </div>
+                            </div>
+                        </div>
+						
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-1 control-label">评论预览</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<div style="border: 1px solid red;min-height:100px;padding: 5px;">{$info.alc_content|reFace}</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-1 control-label">评论内容</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<textarea rows="5" class="form-control" id="alc_content">{$info.alc_content}</textarea>
+							</div>
+						</div>
+						
+						<div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">评论时间</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-10">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                	<input type="text" value="{$info.alc_time|date="Y-m-d H:i:s",###}" class="form-control input-sm" id="alc_time" readonly=""/>
+                                </div>
+                            </div>
+                        </div>
+                        
+						<div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">IP</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-5">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                	<input type="text" value="{$info.alc_ip}" class="form-control input-sm" id="alc_ip" readonly=""/>
+                                </div>
+                            </div>
+                            <div class=" col-sm-9 col-md-9 col-lg-5">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                	<input type="text" value="{$info.alc_ip|getIp}" class="form-control input-sm" readonly=""/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">评论邮箱</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-10">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                	<input type="text" value="{$info.alc_email}" class="form-control input-sm" id="alc_email"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="col-sm-3 col-md-3 col-lg-1 control-label">回复人</label>
+                            <div class=" col-sm-9 col-md-9 col-lg-10">
+                            	<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                	<input type="text" value="{$Think.session.uname}" class="form-control input-sm" id="alc_rname" />
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-1 control-label">回复内容</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<a href="javascript:void(0);" id="rl_exp_btn" class="hidden-xs"><span class="emotion hidden-xs">表情</span>  </a>
+								<div class="rl_exp" id="rl_bq" style="display:none;">
+									<ul class="rl_exp_tab clearfix">
+										<li><a href="javascript:void(0);" class="selected">默认</a></li>
+										<li><a href="javascript:void(0);">拜年</a></li>
+										<li><a href="javascript:void(0);">浪小花</a></li>
+										<li><a href="javascript:void(0);">暴走漫画</a></li>
+									</ul>
+									<ul class="rl_exp_main clearfix rl_selected"></ul>
+									<ul class="rl_exp_main clearfix" style="display:none;"></ul>
+									<ul class="rl_exp_main clearfix" style="display:none;"></ul>
+									<ul class="rl_exp_main clearfix" style="display:none;"></ul>
+									<a href="javascript:void(0);" class="close">×</a>
+								</div>
+								<textarea rows="5" class="form-control" id="content-text">{$info.alc_rcontent}</textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-1 control-label">邮件</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<label><input type="radio" name="send" checked value="1"/> Yes</label>
+								<label><input type="radio" name="send" value="0"/> No</label>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="button" class="btn btn-success btn-sm btn-add-albumContent">确认回复</button>&nbsp;&nbsp;  
+							<button type="button" class="btn btn-danger btn-sm">取消</button>
+						</div>
+					</form>
+				</div>
+			</div>						
+		</div>
+	</div>
+	</div>
+</div>
+<include file="Public:footer"/>
+<script src="/Public/Js/rl_exp.js"></script>
+<script>
+	$(document).ready(function(){
+	$('input[type=checkbox],input[type=radio]').iCheck({
+    	checkboxClass: 'icheckbox_flat-blue',
+    	radioClass: 'iradio_flat-blue'
+	});
+	$('select').select2();
+    $('.spinner').spinner();
+    $('.btn-add-albumContent').click(function(){
+    	var al_id = $("#al_id").val();
+    	var al_name = $("#al_name").val();
+    	var alc_id = $("#alc_id").val();
+    	var alc_name = $("#alc_name").val();
+		var alc_email = $("#alc_email").val();
+		var alc_content = $("#alc_content").val();
+		var alc_rname = $("#alc_rname").val();
+		var alc_rcontent = $("#content-text").val();		
+		var send = $('input[name="send"]:checked').val();
+		if(!alc_name){
+			err("请勿删除回复人!");
+			return false;
+		}else if(!alc_email){
+			err("请勿删评论邮箱!");
+			return false;
+		}else if(!alc_content){
+			err("请勿删除评论内容!");
+			return false;
+		}else if(!alc_rname){
+			err("请勿删除回复人!");
+			return false;
+		}else if(!alc_rcontent){
+			err("回复内容不能为空!");
+			return false;
+		}
+		$(".btn-add-albumContent").attr("disabled",true);
+		$.ajax({
+			type:"post",
+			url:"/Admin/Album/albumContentEditH",
+			async:true,
+			data:{"al_id":al_id,"al_name":al_name,"alc_id":alc_id,"alc_name":alc_name,"alc_email":alc_email,"alc_content":alc_content,"alc_rname":alc_rname,"alc_rcontent":alc_rcontent,"send":send},
+			success:function(data){
+				if(data.error==0){
+					succ("回复相册评论完成!",data.msg,"/Admin/Album/albumContentList");
+				}else{
+					err(data.msg);
+					$(".btn-add-albumContent").removeAttr('disabled');
+				}
+			},
+			eerror:function(data){
+				err("网络错误!");
+				$(".btn-add-albumContent").removeAttr('disabled');
+			}
+		});
+	});
+});
+</script>
+</body>
+</html>

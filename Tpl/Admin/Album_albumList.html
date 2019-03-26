@@ -1,0 +1,85 @@
+<include file="Public:header"/>	
+<div id="content">
+	<div id="content-header">
+		<h1>相册列表</h1>
+		<div class="btn-group">
+			<a href="{:U('Admin/Album/index')}" class="btn btn-large" title="新增相册"><i class="fa fa-file"></i></a>
+			<a href="{:U('Admin/Album/albumContentList')}" class="btn btn-large" title="相册评论"><i class="fa fa-comment"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="#" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#" class="current">相册列表</a>
+	</div>
+	<div class="row">
+		<div class="col-xs-12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"><i class="fa fa-windows"></i></span><h5>相册列表</h5>
+					<span class="label label-info">{$num} 个相册</span>
+				</div>
+				<div class="widget-content">
+					<table class="table table-bordered table-striped table-hover ">
+						<thead>
+							<tr>
+								<th width="5%">相册编号</th>
+								<th width="15%">相册名</th>
+								<th width="15%">相册封面</th>
+								<th width="15%">添加时间</th>
+								<th width="15%">是否显示</th>
+								<th width="10%">操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<volist name="list" id="v">
+							<tr>
+								<td class="id">{$v.al_id}</td>
+								<td>{$v.al_name}</td>
+								<td><img src="{$v.al_img}" width="80px" /></td>
+								<td>{$v.al_time|getTime}</td>
+								<td>
+									<switch name="v['al_view']">
+										<case value="0"><span class=" btn-dark-red btn-xs">不显示</span></case>
+										<case value="1"><span class=" btn-dark-green btn-xs">显示</span></case>
+										<default />暂无数据
+									</switch>
+								</td>
+								<td>
+									<a class="btn btn-success btn-sm" href="{:U('/Admin/Album/albumEdit',array('id'=>$v['al_id']))}">编辑</a>&nbsp;&nbsp;
+									<button class="btn btn-danger btn-sm delalbum">删除</button>
+								</td>
+							</tr>
+							</volist>
+						</tbody>
+					</table>
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/> 
+<script>
+$(document).ready(function(){
+	$(".delalbum",this).click(function(){
+		var id = $(this).parents("tr").find(".id").text();
+		$(".delalbum").attr("disabled",true);
+		$.ajax({
+			type:"post",
+			url:"/Admin/Album/albumDel",
+			async:true,
+			data:{"id":id},
+			success:function(data){
+				if(data.error==0){
+					succ("完成!",data.msg,"__SELF__");
+				}else{
+					err("错误!",data.msg);
+					$(".delalbum").removeAttr('disabled');
+				}
+			},
+		});
+	});
+});
+</script>
+</body>
+</html>

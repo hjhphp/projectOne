@@ -1,0 +1,287 @@
+<include file="Public:header"/>			
+<div id="content">
+	<div id="content-header">
+		<empty name="info['al_id']">
+			<h1>添加相册</h1>
+			<else />
+			<h1>修改相册</h1>
+		</empty>			
+		<div class="btn-group">
+			<a href="{:U('Admin/Album/albumList')}" class="btn btn-large" title="相册列表"><i class="fa fa-tasks"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">相册管理</a>
+		<empty name="info['al_id']">
+			<a href="#" class="current">添加相册</a>
+			<else />
+			<a href="#" class="current">修改相册</a>
+		</empty>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-folder-open"></i>									
+						</span>
+						<empty name="info['al_id']">
+							<h5>添加相册</h5>
+						<else />
+							<h5>修改相册</h5>
+							<input value="{$info.al_id}" id="id" type="hidden">
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form method="get" class="form-horizontal">
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">相册名</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-file"></i></span>
+                                    	<input type="text" class="form-control input-sm" placeholder="相册名字" id="name" value="{$info.al_name}"/>
+                                    </div>
+                                </div>
+                            </div>
+                                                   
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">封面</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+					                <div class="imageBox">
+					                    <div class="thumbBox"></div>
+					                    <div class="spinner" style="display: none">Loading...</div>
+					                </div>
+					                <notempty name="info['al_id']">
+					                	<input id="img" value="{$info.al_img}" type="hidden" />
+					                </notempty>
+									<input type="file" id="file"/>
+								</div>
+                            </div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">描述</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="5" class="form-control" id="remark">{$info.al_remark}</textarea>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="row">
+                                		<div class="col-md-6">
+                                    		<input type="text" <empty name="info['al_id']">value="{:date("Y-m-d H:i:s",time())}"<else />value="{$info.al_time|date="Y-m-d H:i:s",###}"</empty> class="form-control input-sm" id="time" />
+                                    	</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">点击量</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['al_id']">value="{$Think.config.HIT}"<else />value="{$info.al_hit}"</empty> class="form-control input-sm" id="hit"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">来自</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['al_id']">value="{:getOs()}"<else/>value="{$info.al_from}"</empty> class="form-control input-sm" id="from"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">IP</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['al_id']">value="{:get_client_ip()}"<else/>value="{$info.al_ip}"</empty> class="form-control input-sm" id="ip"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['al_id']">value="{$Think.session.uname}"<else/>value="{$info.al_root}"</empty> class="form-control input-sm" id="root"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">显示</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="show" value="1" <eq name="info['al_view']" value="1">checked</eq> /> Yes</label>
+									<label><input type="radio" name="show" value="0" <eq name="info['al_view']" value="0">checked</eq> /> No</label>
+								</div>
+							</div>
+							
+							<div class="form-actions">
+								<empty name="info['al_id']">
+								<button type="button" class="btn btn-success btn-sm" id="addAl">存入数据库</button> 
+								<else />
+								<button type="button" class="btn btn-success btn-sm" id="editAl">存入数据库</button>
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/> 
+    <script>
+	$(document).ready(function(){
+		$('input[type=checkbox],input[type=radio]').iCheck({
+	    	checkboxClass: 'icheckbox_flat-blue',
+	    	radioClass: 'iradio_flat-blue'
+		});
+		$('select').select2();
+	    $('.spinner').spinner();
+	    var head = $('#img').val();
+	    if(!head){
+	    	head = '/Public/Other/Img/default.png';
+	    }
+	    var options = {
+        thumbBox: '.thumbBox',
+        spinner: '.spinner',
+        imgSrc: head
+    	};
+    	var cropper = $('.imageBox').cropbox(options);
+    	$('#file').on('change', function() {
+        	var reader = new FileReader();
+        	reader.onload = function(e) {
+            options.imgSrc = e.target.result;
+            cropper = $('.imageBox').cropbox(options);
+        }
+        reader.readAsDataURL(this.files[0]);
+        this.files = [];
+    	});
+	    $('#addAl').click(function(){
+	    	var name = $('#name').val();
+	    	var remark = $('#remark').val();
+	    	var time = $('#time').val();
+	    	var hit = $('#hit').val();
+	    	var root = $('#root').val();
+	    	var ip = $('#ip').val();
+	    	var from = $('#from').val();
+	    	var img = cropper.getDataURL();
+	    	var show = $('input[name="show"]:checked').val();
+	    	$("#addAl").attr("disabled",true);
+	    	if(!name){
+	    		err("相册名不能为空！");
+	    		return false;
+	    	}else if(!remark){
+	    		err("相册描述不能为空！");
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间！");
+	    		return false;
+	    	}else if(!hit){
+	    		err("点击量不能为空！");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示！");
+	    		return false;
+	    	}else if(!ip){
+	    		err("请勿删除IP！");
+	    		return false;
+	    	}else if(!from){
+	    		err("请选择来自！");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空！");
+	    		return false;
+	    	}
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Album/albumAdd",
+	    		async:true,
+	    		data:{"al_name":name,"al_img":img,"al_remark":remark,"al_time":time,"al_hit":hit,"al_view":show,"al_ip":ip,"al_from":from,"al_root":root},
+	    		success:function(data){
+					if(data.error==0){
+						succ("添加相册完成!",data.msg,"/Admin/Album/albumList");
+				}else{
+						err(data.msg);
+						$("#addAl").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#addAl").removeAttr('disabled');
+				}
+	    	});
+	    });
+	    $('#editAl').click(function(){
+	    	var id = $('#id').val();
+	    	var name = $('#name').val();
+	    	var remark = $('#remark').val();
+	    	var time = $('#time').val();
+	    	var hit = $('#hit').val();
+	    	var root = $('#root').val();
+	    	var ip = $('#ip').val();
+	    	var from = $('#from').val();
+	    	var img = cropper.getDataURL();
+	    	var show = $('input[name="show"]:checked').val();
+	    	if(!name){
+	    		err("相册名不能为空！");
+	    		return false;
+	    	}else if(!remark){
+	    		err("相册描述不能为空！");
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间！");
+	    		return false;
+	    	}else if(!hit){
+	    		err("点击量不能为空！");
+	    		return false;
+	    	}else if(!show){
+	    		err("请选择是否显示！");
+	    		return false;
+	    	}else if(!ip){
+	    		err("请勿删除IP！");
+	    		return false;
+	    	}else if(!from){
+	    		err("请选择来自！");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空！");
+	    		return false;
+	    	}
+	    	$("#editAl").attr("disabled",true);
+	    	$.ajax({
+	    		type:"post",
+	    		url:"/Admin/Album/albumEditH",
+	    		async:true,
+	    		data:{"al_id":id,"al_name":name,"al_img":img,"al_remark":remark,"al_time":time,"al_hit":hit,"al_view":show,"al_ip":ip,"al_from":from,"al_root":root},
+	    		success:function(data){
+					if(data.error==0){
+						succ("添加相册完成!",data.msg,"/Admin/Album/albumList");
+				}else{
+						err(data.msg);
+						$("#editAl").removeAttr('disabled');
+					}
+				},
+				eerror:function(data){
+					err("网络错误!");
+					$("#editAl").removeAttr('disabled');
+				}
+	    	});
+	    });
+	});
+</script>
+</body>
+</html>

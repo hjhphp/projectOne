@@ -1,0 +1,275 @@
+<include file="Public:header"/>				
+<div id="content">
+	<div id="content-header">
+		<empty name="info['l_id']">	
+		<h1>新增友情链接</h1>
+		<else/>
+		<h1>修改友情链接</h1>
+		</empty>
+		<div class="btn-group">
+			<a class="btn btn-large" title="友情链接列表"><i class="fa fa-tasks"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">互动管理</a>
+		<empty name="info['l_id']">	
+		<a href="#" class="current">新增友情链接</a>
+		<else/>
+		<a href="#" class="current">修改友情链接</a>
+		</empty>				
+	</div>
+	<div class="container-fluid">
+		<notempty name="info['l_id']">	
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">×</button>
+					发送邮件请耐心等待和保证邮件地址的准确性!
+				</div>
+			</div>
+		</div>
+		</notempty>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-comment"></i>									
+						</span>
+						<empty name="info['l_id']">	
+						<h5>新增友情链接</h5>
+						<else/>
+						<h5>修改友情链接</h5>
+						<input id="id" value="{$info.l_id}" type="hidden"/>
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form  method="post" class="form-horizontal">							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">链接名称</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" value="{$info.l_name}" class="form-control input-sm" placeholder="" id="name" />
+                                    </div>
+                                </div>
+                            </div>
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">描述内容</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="5" class="form-control" id="remark">{$info.l_content}</textarea>
+								</div>
+							</div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">申请邮箱</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    	<input type="email" value="{$info.l_email}" class="form-control input-sm" id="email" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">URL地址</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                    	<input type="text" value="{$info.l_url}" class="form-control input-sm" placeholder="http://www.loveteemo.com" id="url" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">IP</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-5">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                    	<input type="text" <empty name="info['l_id']">value="{:get_client_ip()}"<else/>value="{$info.l_ip}"</empty> class="form-control input-sm" />
+                                    </div>
+                                </div>
+                                <div class=" col-sm-9 col-md-9 col-lg-5">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+                                    	<input type="text" <empty name="info['l_id']">value="{:getIp(get_client_ip())}"<else/>value="{$info.l_ip|getIp}"</empty> class="form-control input-sm" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">排序</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-anchor"></i></span>
+                                    	<input type="text" <empty name="info['l_id']">value="100"<else/>value="{$info.l_sort}"</empty> class="form-control input-sm" placeholder="100" id="sort" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">显示位置</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="show" value="0" <eq name="info['l_view']" value="0">checked</eq>/> 不显示</label>
+									<label><input type="radio" name="show" value="2" <eq name="info['l_view']" value="2">checked</eq>/> 首页</label>
+									<label><input type="radio" name="show" value="1" <eq name="info['l_view']" value="1">checked</eq>/> 内页</label>
+								</div>
+							</div>
+                            <notempty name="info['l_id']">
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">回复人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" value="{$Think.session.uname}" class="form-control input-sm" id="rname"  />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">回复时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    	<input type="text" value="{:date("Y-m-d H:i:s",time())}" class="form-control input-sm" id="rtime" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">回复内容</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="5" class="form-control" id="rcontent" id="rcontent">{$info.l_rcontent}</textarea>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">邮件</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<label><input type="radio" name="send" checked value="1"/> Yes</label>
+									<label><input type="radio" name="send" value="0" /> No</label>
+								</div>
+							</div>
+							</notempty>					
+							<div class="form-actions">
+								<empty name="info['l_id']">
+								<button type="button" class="btn btn-success btn-sm" id="addL">添加</button> 
+								<else/>
+								<button type="button" class="btn btn-success btn-sm" id="editL">修改</button> 
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/> 
+<script>
+	$(document).ready(function(){
+	$('input[type=checkbox],input[type=radio]').iCheck({
+    	checkboxClass: 'icheckbox_flat-blue',
+    	radioClass: 'iradio_flat-blue'
+	});
+	$('select').select2();
+    $('.spinner').spinner();
+    $('#addL').click(function(){
+    	var name=$('#name').val();
+    	var email = $('#email').val();
+    	var remark=$('#remark').val();
+    	var url=$('#url').val();
+    	var sort=$('#sort').val();
+    	var show=$('input[name="show"]:checked').val();
+    	if(!name){
+			err("链接名不能为空!");
+			return false;
+		}else if(!remark){
+			err("链接描述不能为空!");
+			return false;
+		}else if(!show){
+			err("请选择是否显示!");
+			return false;
+		}else if(!url){
+			err("转向地址不能为空!");
+			return false;
+		}else if(!sort){
+			err("排序不能为空!");
+			return false;
+		}
+		$("#addL").attr("disabled",true);
+		$.ajax({
+			type:"post",
+			url:"/Admin/Link/linkAdd",
+			async:true,
+			data:{"l_name":name,"l_email":email,"l_url":url,"l_content":remark,"l_sort":sort,"l_view":show},
+			success:function(data){
+				if(data.error==0){
+					succ("添加链接完成!",data.msg,"/Admin/Link/linkList");
+				}else{
+					err(data.msg);
+					$("#addL").removeAttr('disabled');
+				}
+			},
+			eerror:function(data){
+				err("网络错误!");
+				$("#addsay").removeAttr('disabled');
+			}
+		});
+    });
+    
+    $('#editL').click(function(){
+    	var id=$('#id').val();
+    	var send = $('input[name="send"]:checked').val();
+    	var name=$('#name').val();
+    	var email = $('#email').val();
+    	var remark=$('#remark').val();
+    	var url=$('#url').val();
+    	var sort=$('#sort').val();
+    	var show=$('input[name="show"]:checked').val();
+    	var rname = $('#rname').val();
+    	var rcontent = $('#rcontent').val();
+    	var rtime = $('#rtime').val();
+    	if(!name){
+			err("链接名不能为空!");
+			return false;
+		}else if(!remark){
+			err("链接描述不能为空!");
+			return false;
+		}else if(!show){
+			err("请选择是否显示!");
+			return false;
+		}else if(!url){
+			err("转向地址不能为空!");
+			return false;
+		}else if(!sort){
+			err("排序不能为空!");
+			return false;
+		}else if(!rname){
+			err("请勿删除回复人!");
+			return false;
+		}else if(!rcontent){
+			err("回复内容不能为空!");
+			return false;
+		}else if(!rtime){
+			err("请勿删除回复时间!");
+			return false;
+		}
+		$("#editL").attr("disabled",true);
+		$.ajax({
+			type:"post",
+			url:"/Admin/Link/linkEditH",
+			async:true,
+			data:{"l_id":id,"send":send,"l_name":name,"l_email":email,"l_url":url,"l_content":remark,"l_sort":sort,"l_view":show,"l_rname":rname,"l_rcontent":rcontent,"l_rtime":rtime},
+			success:function(data){
+				if(data.error==0){
+					succ("处理链接完成!",data.msg,"/Admin/Link/linkList");
+				}else{
+					err(data.msg);
+					$("#editL").removeAttr('disabled');
+				}
+			},
+			eerror:function(data){
+				err("网络错误!");
+				$("#editL").removeAttr('disabled');
+			}
+		});
+    });
+});
+</script>
+</body>
+</html>

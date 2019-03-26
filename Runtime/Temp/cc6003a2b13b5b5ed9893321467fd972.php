@@ -1,0 +1,3 @@
+<?php
+//000000000010a:1:{i:0;a:14:{s:5:"sc_id";s:1:"1";s:6:"sc_pid";s:2:"32";s:7:"sc_name";s:6:"仇鹏";s:8:"sc_email";s:17:"1979933952@qq.com";s:6:"sc_url";s:0:"";s:10:"sc_content";s:18:"加油！！！！";s:5:"sc_ip";s:13:"124.202.177.5";s:6:"sc_img";s:27:"/Public/Img/Portrait/31.jpg";s:7:"sc_from";s:5:"Win 7";s:7:"sc_time";s:10:"1452948652";s:8:"sc_rname";s:5:"admin";s:8:"sc_rtime";s:10:"1456494373";s:11:"sc_rcontent";s:53:"谢谢，因为各种原因没管理博客。[mr:/29]";s:2:"ip";s:6:"北京";}}
+?>

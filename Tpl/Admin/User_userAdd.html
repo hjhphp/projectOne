@@ -1,0 +1,277 @@
+<include file="Public:header"/>	
+<div id="content">
+	<div id="content-header">
+		<empty name="info['u_id']">
+			<h1>添加用户</h1>
+		<else />
+			<h1>修改用户</h1>
+		</empty>
+		<div class="btn-group">
+			<a href="{:U('Admin/User/userList')}" class="btn btn-large" title="用户列表"><i class="fa fa-tasks"></i></a>
+		</div>
+	</div>
+	<div id="breadcrumb">
+		<a href="index.html" title="回到首页" class="tip-bottom"><i class="fa fa-home"></i> 首页</a>
+		<a href="#">用户管理</a>
+		<empty name="info['u_id']">
+		<a href="#" class="current">添加用户</a>
+		<else />
+			<a href="#" class="current">修改用户</a>
+		</empty>
+	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon">
+							<i class="fa fa-user"></i>									
+						</span>
+						<empty name="info['u_id']">
+						<h5>添加用户</h5>
+						<else />
+						<h5>修改用户</h5>
+						<input id="uid" value="{$info.u_id}" type="hidden" />
+						</empty>
+					</div>
+					<div class="widget-content nopadding">
+						<form action="#" method="post" class="form-horizontal">
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">用户名</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" value="{$info.u_name}" class="form-control input-sm" placeholder="用户名" name="user" id="user" />
+                                    </div>
+                                </div>
+                            </div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">密码</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-laptop"></i></span>
+                                    	<input type="password" value="" class="form-control input-sm" <empty name="info['u_id']">placeholder="密码"<else />placeholder="密码为空为不修改"</empty>  id="password" name="password"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">联系邮箱</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                    	<input type="email" value="{$info.u_email}" class="form-control input-sm" id="email"/>
+                                    </div>
+                                </div>
+                            </div>
+							
+							<div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">描述</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<textarea rows="5" class="form-control" id="remark">{$info.u_remark}</textarea>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加时间</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="row">
+                                		<div class="col-md-6">
+                                    		<input type="text" <empty name="info['u_id']">value="{:date("Y-m-d H:i:s",time())}"<else />value="{$info.u_time}"</empty>  class="form-control input-sm" id="time" />
+                                    	</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+							<div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加人</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['u_id']"> value="{$Think.session.uname}" <else /> value="{$info.u_root}" readonly</empty> class="form-control input-sm" id="root"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+								<label class="col-sm-3 col-md-3 col-lg-1 control-label">权限组</label>
+								<div class="col-sm-9 col-md-9 col-lg-10">
+									<select id="class">
+										<option value="x">--请选择--</option>
+										<option value="1" <eq name="info['u_class']" value="1">selected</eq> >最高管理员</option>
+										<option value="2" <eq name="info['u_class']" value="2">selected</eq> >编辑</option>
+										<option value="3" <eq name="info['u_class']" value="3">selected</eq> >游客</option>
+									</select>
+								</div>
+							</div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 col-md-3 col-lg-1 control-label">添加IP</label>
+                                <div class=" col-sm-9 col-md-9 col-lg-10">
+                                	<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                    	<input type="text" <empty name="info['u_id']">value="{:get_client_ip()}"<else />value="{$info.u_ip}" readonly</empty> class="form-control input-sm" id="ip"/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+							<div class="form-actions">
+								<empty name="info['u_id']">
+								<button type="button" class="btn btn-success btn-sm" id="adduser">存入数据库</button>  
+								<else />
+								<button type="button" class="btn btn-success btn-sm" id="edituser">存入数据库</button>  
+								</empty>
+								<button type="button" class="btn btn-danger btn-sm">取消</button>
+							</div>
+						</form>
+					</div>
+				</div>						
+			</div>
+		</div>
+	</div>
+</div>
+<include file="Public:footer"/> 
+    <script>
+    	$(document).ready(function(){
+		$('input[type=checkbox],input[type=radio]').iCheck({
+	    	checkboxClass: 'icheckbox_flat-blue',
+	    	radioClass: 'iradio_flat-blue'
+		});
+		$('select').select2();
+	    $('.spinner').spinner();
+	    $("#adduser").click(function(){
+	    	var user = $("#user").val();
+	    	var password = $("#password").val();
+	    	var email = $("#email").val();
+	    	var time = $("#time").val();
+	    	var remark = $("#remark").val();
+	    	var root = $("#root").val();
+	    	var ip = $("#ip").val();
+	    	var uclass = $("#class").val();
+	    	if(!user){
+	    		err("用户名不能为空!");
+	    		return false;
+	    	}else if(!password){
+	    		err("密码不能为空!");
+	    		return false;
+	    	}else if(!email){
+	    		err("邮箱不能为空!");
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("描述不能为空!");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空!");
+	    		return false;
+	    	}else if(uclass == 'x'){
+	    		err("用户权限组不能为空!");
+	    		return false;
+	    	}else if(!ip){
+	    		err("添加人IP不能为空!");
+	    		return false;
+	    	}else{
+	    		$("#adduser").attr("disabled",true);
+	    		$.ajax({
+	    			type:"post",
+	    			url:"{:U('/Admin/User/userAddH')}",
+	    			async:true,
+	    			data:{"u_name":user,"u_password":password,"u_class":uclass,"u_remark":remark,"u_email":email,"u_time":time,"u_ip":ip,"u_roor":root},
+					success:function(data){
+						if(data.error==0){
+							succ("添加成功!",data.msg,"/Admin/User/userList");
+						}else if(data.error==1){
+							err(data.msg);
+							$("#adduser").removeAttr('disabled');
+						}
+					},
+					error:function(data){
+						err("网路错误!");
+						$("#adduser").removeAttr('disabled');
+					}
+	    		});
+	    	}
+	    	
+	    });
+	    $("#edituser").click(function(){
+	    	var uid = $("#uid").val();
+	    	var user = $("#user").val();
+	    	var password = $("#password").val();
+	    	var email = $("#email").val();
+	    	var time = $("#time").val();
+	    	var remark = $("#remark").val();
+	    	var root = $("#root").val();
+	    	var ip = $("#ip").val();
+	    	var uclass = $("#class").val();
+	    	if(!user){
+	    		err("用户名不能为空!");
+	    		return false;
+	    	}else if(!email){
+	    		err("邮箱不能为空!");
+	    		return false;
+	    	}else if(!time){
+	    		err("请勿删除时间!");
+	    		return false;
+	    	}else if(!remark){
+	    		err("描述不能为空!");
+	    		return false;
+	    	}else if(!root){
+	    		err("添加人不能为空!");
+	    		return false;
+	    	}else if(uclass == 'x'){
+	    		err("用户权限组不能为空!");
+	    		return false;
+	    	}else if(!ip){
+	    		err("添加人IP不能为空!");
+	    		return false;
+	    	}else if(!password){
+	    		$("#edituser").attr("disabled",true);
+	    		$.ajax({
+	    			type:"post",
+	    			url:"{:U('/Admin/User/userEditH')}",
+	    			async:true,
+	    			data:{"u_id":uid,"u_name":user,"u_class":uclass,"u_remark":remark,"u_email":email,"u_time":time,"u_ip":ip,"u_roor":root},
+					success:function(data){
+						if(data.error==0){
+							succ("修改成功!",data.msg,"/Admin/User/userList")
+						}else if(data.error==1){
+							err(data.msg);
+							$("#edituser").removeAttr('disabled');
+						}
+					},
+					error:function(data){
+						err("网路错误!");
+						$("#edituser").removeAttr('disabled');
+					}
+	    		});
+	    	}else{
+	    		$("#edituser").attr("disabled",true);
+	    		$.ajax({
+	    			type:"post",
+	    			url:"{:U('/Admin/User/userEditH')}",
+	    			async:true,
+	    			data:{"u_id":uid,"u_name":user,"u_password":password,"u_class":uclass,"u_remark":remark,"u_email":email,"u_time":time,"u_ip":ip,"u_roor":root},
+					success:function(data){
+						if(data.error==0){
+							succ("修改成功!",data.msg,"/Admin/User/userList");
+						}else if(data.error==1){
+							err(data.msg);
+							$("#edituser").removeAttr('disabled');
+						}
+					},
+					error:function(data){
+						err("网路错误!");
+						$("#edituser").removeAttr('disabled');
+					}
+	    		});			    		
+	    	}
+	    	
+	    });
+	});
+    </script>
+</body>
+</html>
